@@ -53,17 +53,6 @@ async function CircuitContent({ id }: { id: string }) {
 
       <CircuitMap circuitId={id} circuitName={circuit.circuitName} className="mb-8" />
 
-      <div className="grid grid-cols-2 gap-3 mb-8">
-        <div className="bg-pit border border-asphalt rounded-xl p-4 text-center">
-          <p className="text-xs text-silver">Latitude</p>
-          <p className="font-mono text-white">{circuit.Location.lat}</p>
-        </div>
-        <div className="bg-pit border border-asphalt rounded-xl p-4 text-center">
-          <p className="text-xs text-silver">Longitude</p>
-          <p className="font-mono text-white">{circuit.Location.long}</p>
-        </div>
-      </div>
-
       {upcoming.length > 0 && (
         <div className="mb-8">
           <h2 className="text-xl font-bold text-white font-display tracking-wide mb-4">Upcoming Race</h2>
@@ -102,17 +91,6 @@ async function CircuitContent({ id }: { id: string }) {
           </div>
         </div>
       )}
-
-      <div className="mt-8">
-        <a
-          href={circuit.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-sm text-scarlet hover:underline"
-        >
-          Wikipedia &rarr;
-        </a>
-      </div>
     </div>
   )
 }
