@@ -2,10 +2,12 @@ import { Suspense } from "react"
 import type { Metadata } from "next"
 import Link from "next/link"
 import { notFound } from "next/navigation"
-import { getSchedule, getRaceResult } from "@/lib/ergast"
+import { getSchedule, getRaceResult, getDriverStandings, getRaceCount } from "@/lib/ergast"
 import { getTeamColor, getCountryFlag } from "@/lib/teamColors"
 import { formatDate, getStatusDisplay } from "@/lib/utils"
+import { predictRace } from "@/lib/predictor"
 import GlossaryTooltip from "@/components/ui/GlossaryTooltip"
+import PredictorPanel from "@/components/ui/PredictorPanel"
 import { DriverStandingsSkeleton } from "@/components/ui/Skeleton"
 
 interface RacePageProps {
@@ -30,7 +32,11 @@ export async function generateMetadata({
 }
 
 async function RaceContent({ round }: { round: string }) {
-  const schedule = await getSchedule()
+  const [schedule, driverStandings, totalRaces] = await Promise.all([
+    getSchedule(),
+    getDriverStandings(),
+    getRaceCount(),
+  ])
   const raceMeta = schedule?.find((r) => r.round === round)
 
   if (!raceMeta) {
@@ -42,6 +48,21 @@ async function RaceContent({ round }: { round: string }) {
   const results = data?.results ?? []
 
   const flag = getCountryFlag(race.Circuit.Location.country)
+
+  // Build prediction data
+  const prediction = driverStandings
+    ? predictRace(
+        driverStandings.map((d) => ({
+          position: parseInt(d.position, 10),
+          driverName: `${d.Driver.givenName} ${d.Driver.familyName}`,
+          constructorName: d.Constructors[0]?.name ?? "",
+          points: parseInt(d.points, 10),
+          wins: parseInt(d.wins, 10),
+        })),
+        race.Circuit.circuitId,
+        totalRaces > 0 ? (parseInt(race.round, 10) - 1) / totalRaces : 0.5
+      )
+    : null
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -186,23 +207,31 @@ async function RaceContent({ round }: { round: string }) {
         </div>
       )}
 
-      <div className="mt-6 rounded-xl border border-asphalt bg-pit p-4 space-y-2">
-        <GlossaryTooltip term="Gap">
-          <p className="text-xs text-silver leading-relaxed">
-            <span className="text-white font-semibold">What is &ldquo;Gap&rdquo;?</span>{" "}
-            The gap shows how many seconds behind the leader (or the car ahead) a
-            driver finished. A gap of +5.342s means they crossed the line 5.342
-            seconds after the car in front.
-          </p>
-        </GlossaryTooltip>
-        <GlossaryTooltip term="Fastest Lap">
-          <p className="text-xs text-silver leading-relaxed">
-            <span className="text-white font-semibold">Fastest Lap:</span>{" "}
-            The driver who set the quickest single lap of the race earns a bonus
-            championship point. Marked with a{" "}
-            <span className="text-purple-400 font-semibold">purple FL badge</span>.
-          </p>
-        </GlossaryTooltip>
+      <div className="grid gap-6 mt-6 lg:grid-cols-3">
+        <div className="lg:col-span-2 rounded-xl border border-asphalt bg-pit p-4 space-y-2">
+          <GlossaryTooltip term="Gap">
+            <p className="text-xs text-silver leading-relaxed">
+              <span className="text-white font-semibold">What is &ldquo;Gap&rdquo;?</span>{" "}
+              The gap shows how many seconds behind the leader (or the car ahead) a
+              driver finished. A gap of +5.342s means they crossed the line 5.342
+              seconds after the car in front.
+            </p>
+          </GlossaryTooltip>
+          <GlossaryTooltip term="Fastest Lap">
+            <p className="text-xs text-silver leading-relaxed">
+              <span className="text-white font-semibold">Fastest Lap:</span>{" "}
+              The driver who set the quickest single lap of the race earns a bonus
+              championship point. Marked with a{" "}
+              <span className="text-purple-400 font-semibold">purple FL badge</span>.
+            </p>
+          </GlossaryTooltip>
+        </div>
+        {prediction && (
+          <PredictorPanel
+            prediction={prediction}
+            circuitName={race.Circuit.circuitName}
+          />
+        )}
       </div>
     </div>
   )

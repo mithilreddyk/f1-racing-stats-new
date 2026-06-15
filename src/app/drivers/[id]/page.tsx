@@ -5,6 +5,7 @@ import { getDriverInfo, getDriverAllResults, getDriverStandings } from "@/lib/er
 import { getTeamColor, getCountryFlag } from "@/lib/teamColors"
 import { getStatusDisplay } from "@/lib/utils"
 import { HeroSkeleton } from "@/components/ui/Skeleton"
+import TeamCarBg from "@/components/ui/TeamCarBg"
 import Link from "next/link"
 
 interface DriverPageProps {
@@ -31,7 +32,7 @@ async function DriverContent({ id }: { id: string }) {
   const flag = getCountryFlag(driver.nationality)
   const currentStanding = standings?.find((s) => s.Driver.driverId === id)
   const teamColor = getTeamColor(currentStanding?.Constructors[0]?.name ?? "")
-  const currentResults = allResults?.slice(0, 10) ?? []
+  const currentResults = allResults ?? []
 
   // Stats
   const totalRaces = allResults?.length ?? 0
@@ -43,11 +44,22 @@ async function DriverContent({ id }: { id: string }) {
   const dnfs = allResults?.filter((r) => r.Results?.[0]?.status !== "Finished" && !r.Results?.[0]?.status.startsWith("+")).length ?? 0
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="flex items-center gap-4 mb-8">
+    <div className="relative">
+      <div
+        className="absolute top-0 left-0 w-full h-48 pointer-events-none"
+        style={{
+          background: `linear-gradient(180deg, ${teamColor}22 0%, transparent 100%)`,
+        }}
+      />
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative">
+      <TeamCarBg teamColor={teamColor} />
+      <div className="flex items-center gap-4 mb-8 relative z-10">
         <div
-          className="w-16 h-16 rounded-2xl flex items-center justify-center text-2xl font-bold font-display text-white"
-          style={{ backgroundColor: teamColor }}
+          className="w-20 h-20 rounded-2xl flex items-center justify-center text-2xl font-bold font-display text-white shadow-lg"
+          style={{
+            backgroundColor: teamColor,
+            boxShadow: `0 0 30px ${teamColor}44`,
+          }}
         >
           {driver.code}
         </div>
@@ -72,7 +84,7 @@ async function DriverContent({ id }: { id: string }) {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-8 relative z-10">
         <div className="bg-pit border border-asphalt rounded-xl p-4 text-center">
           <p className="text-2xl font-bold font-mono text-white">{totalRaces}</p>
           <p className="text-xs text-silver">Races</p>
@@ -91,10 +103,10 @@ async function DriverContent({ id }: { id: string }) {
         </div>
       </div>
 
-      <h2 className="text-xl font-bold text-white font-display tracking-wide mb-4">
-        Recent Results
+      <h2 className="text-xl font-bold text-white font-display tracking-wide mb-4 relative z-10">
+        All Results ({currentResults.length})
       </h2>
-      <div className="overflow-hidden rounded-xl border border-asphalt bg-pit">
+      <div className="overflow-y-auto max-h-[600px] rounded-xl border border-asphalt bg-pit relative z-10">
         <table className="w-full">
           <thead>
             <tr className="border-b border-asphalt bg-carbon">
@@ -135,16 +147,7 @@ async function DriverContent({ id }: { id: string }) {
         </table>
       </div>
 
-      <div className="mt-6">
-        <a
-          href={driver.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-sm text-scarlet hover:underline"
-        >
-          Wikipedia &rarr;
-        </a>
-      </div>
+    </div>
     </div>
   )
 }

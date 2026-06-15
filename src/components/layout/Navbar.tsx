@@ -3,6 +3,7 @@
 import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
+import SeasonSelector from "@/components/ui/SeasonSelector"
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -15,6 +16,7 @@ const navLinks = [
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const pathname = usePathname()
+  const currentSeason = pathname.match(/\/(\d{4})\//)?.[1] ?? "2026"
 
   return (
     <header className="sticky top-0 z-50 border-b border-asphalt bg-carbon/95 backdrop-blur-sm">
@@ -48,6 +50,7 @@ export default function Navbar() {
                 </Link>
               )
             })}
+            <SeasonSelector currentSeason={currentSeason} />
           </div>
 
           <button

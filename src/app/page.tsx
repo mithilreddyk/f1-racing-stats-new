@@ -9,6 +9,7 @@ import {
 import HeroRace from "@/components/sections/HeroRace"
 import StandingsPreview from "@/components/sections/StandingsPreview"
 import LastRaceResult from "@/components/sections/LastRaceResult"
+import PointsCalculator from "@/components/ui/PointsCalculator"
 import GlossaryTooltip from "@/components/ui/GlossaryTooltip"
 import { HeroSkeleton, DriverStandingsSkeleton } from "@/components/ui/Skeleton"
 
@@ -23,7 +24,8 @@ async function HomeContent() {
     ])
 
   const currentLeader = drivers?.[0]
-  const racesLeft = totalRaces - (lastRace ? parseInt(lastRace.race.round, 10) : 0)
+  const lastRound = lastRace ? parseInt(lastRace.race.round, 10) : 0
+  const racesLeft = totalRaces - lastRound
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
@@ -66,6 +68,19 @@ async function HomeContent() {
         race={lastRace?.race ?? null}
         results={lastRace?.results ?? null}
       />
+
+      {drivers && drivers.length > 1 && (
+        <div className="max-w-xs">
+          <PointsCalculator
+            driverStandings={drivers.map((d) => ({
+              position: d.position,
+              driverName: `${d.Driver.givenName} ${d.Driver.familyName}`,
+              points: parseInt(d.points, 10),
+            }))}
+            racesRemaining={racesLeft}
+          />
+        </div>
+      )}
     </div>
   )
 }

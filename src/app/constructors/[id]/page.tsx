@@ -5,6 +5,7 @@ import { getConstructorStandings, getConstructorResults, getDriverStandings } fr
 import { getTeamColor, getCountryFlag } from "@/lib/teamColors"
 import { getStatusDisplay } from "@/lib/utils"
 import { HeroSkeleton } from "@/components/ui/Skeleton"
+import TeamCarBg from "@/components/ui/TeamCarBg"
 import Link from "next/link"
 
 interface ConstructorPageProps {
@@ -37,15 +38,26 @@ async function ConstructorContent({ id }: { id: string }) {
     .sort((a, b) => parseInt(a.position, 10) - parseInt(b.position, 10))
 
   const isP1 = parseInt(team.position, 10) === 1
-  const recentResults = results?.slice(0, 10) ?? []
+  const recentResults = results ?? []
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="mb-8">
+    <div className="relative">
+      <div
+        className="absolute top-0 left-0 w-full h-48 pointer-events-none"
+        style={{
+          background: `linear-gradient(180deg, ${color}22 0%, transparent 100%)`,
+        }}
+      />
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 relative">
+      <TeamCarBg teamColor={color} />
+      <div className="mb-8 relative z-10">
         <div className="flex items-center gap-4">
           <div
-            className="w-16 h-16 rounded-2xl flex items-center justify-center text-lg font-bold text-white"
-            style={{ backgroundColor: color }}
+            className="w-20 h-20 rounded-2xl flex items-center justify-center text-xl font-bold text-white shadow-lg"
+            style={{
+              backgroundColor: color,
+              boxShadow: `0 0 30px ${color}44`,
+            }}
           >
             {team.Constructor.name.slice(0, 3).toUpperCase()}
           </div>
@@ -64,7 +76,7 @@ async function ConstructorContent({ id }: { id: string }) {
         </div>
       </div>
 
-      <div className="grid grid-cols-3 gap-3 mb-8">
+      <div className="grid grid-cols-3 gap-3 mb-8 relative z-10">
         <div className="bg-pit border border-asphalt rounded-xl p-4 text-center">
           <p className="text-2xl font-bold font-mono text-white">{team.points}</p>
           <p className="text-xs text-silver">Points</p>
@@ -81,8 +93,8 @@ async function ConstructorContent({ id }: { id: string }) {
 
       {teamDrivers && teamDrivers.length > 0 && (
         <>
-          <h2 className="text-xl font-bold text-white font-display tracking-wide mb-4">Drivers</h2>
-          <div className="grid gap-3 sm:grid-cols-2 mb-8">
+          <h2 className="text-xl font-bold text-white font-display tracking-wide mb-4 relative z-10">Drivers</h2>
+          <div className="grid gap-3 sm:grid-cols-2 mb-8 relative z-10">
             {teamDrivers.map((d) => (
               <Link
                 key={d.Driver.driverId}
@@ -106,8 +118,8 @@ async function ConstructorContent({ id }: { id: string }) {
         </>
       )}
 
-      <h2 className="text-xl font-bold text-white font-display tracking-wide mb-4">Recent Results</h2>
-      <div className="overflow-hidden rounded-xl border border-asphalt bg-pit">
+      <h2 className="text-xl font-bold text-white font-display tracking-wide mb-4 relative z-10">Season Results ({recentResults.length})</h2>
+      <div className="overflow-y-auto max-h-[600px] rounded-xl border border-asphalt bg-pit relative z-10">
         <table className="w-full">
           <thead>
             <tr className="border-b border-asphalt bg-carbon">
@@ -150,6 +162,7 @@ async function ConstructorContent({ id }: { id: string }) {
           </tbody>
         </table>
       </div>
+    </div>
     </div>
   )
 }
