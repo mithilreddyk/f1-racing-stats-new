@@ -11,7 +11,8 @@ const CURRENT_SEASON = "current"
 
 async function fetchErgast<T>(endpoint: string): Promise<T | null> {
   try {
-    const url = `${BASE_URL}${endpoint}.json`
+    const [path, query] = endpoint.split("?")
+    const url = `${BASE_URL}${path}.json${query ? `?${query}` : ""}`
     const controller = new AbortController()
     const timeoutId = setTimeout(() => controller.abort(), 8000)
     const res = await fetch(url, {
@@ -128,7 +129,7 @@ export async function getCircuits(
   limit: number = 80
 ): Promise<import("@/types/f1").Circuit[] | null> {
   const data = await fetchErgast<ErgastResponse>(
-    `/circuits.json?limit=${limit}`
+    `/circuits?limit=${limit}`
   )
   if (!data?.MRData?.CircuitTable?.Circuits) return null
   return data.MRData.CircuitTable.Circuits
