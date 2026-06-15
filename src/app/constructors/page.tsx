@@ -1,5 +1,6 @@
 import { Suspense } from "react"
 import type { Metadata } from "next"
+import Link from "next/link"
 import { getConstructorStandings } from "@/lib/ergast"
 import TeamCard from "@/components/cards/TeamCard"
 import GlossaryTooltip from "@/components/ui/GlossaryTooltip"

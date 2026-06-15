@@ -1,5 +1,6 @@
 import { Suspense } from "react"
 import type { Metadata } from "next"
+import Link from "next/link"
 import { getDriverStandings } from "@/lib/ergast"
 import { getTeamColor, getCountryFlag } from "@/lib/teamColors"
 import TeamColorBar from "@/components/ui/TeamColorBar"
@@ -100,14 +101,15 @@ async function DriversContent() {
                   <td className="py-3 px-4">
                     <div className="flex items-center gap-2">
                       <span className="text-sm">{flag}</span>
-                      <span
-                        className={`font-semibold ${
+                      <Link
+                        href={`/drivers/${driver.Driver.driverId}`}
+                        className={`font-semibold hover:text-scarlet transition-colors ${
                           isP1 ? "text-gold drop-shadow-[0_0_4px_rgba(255,215,0,0.3)]" : "text-white"
                         }`}
                       >
                         {driver.Driver.givenName}{" "}
                         {driver.Driver.familyName}
-                      </span>
+                      </Link>
                       {isP1 && (
                         <span className="text-[10px] font-bold text-gold uppercase tracking-wider ml-1">
                           P1

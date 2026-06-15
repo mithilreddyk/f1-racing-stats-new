@@ -9,6 +9,7 @@ const navLinks = [
   { href: "/drivers", label: "Drivers" },
   { href: "/constructors", label: "Teams" },
   { href: "/schedule", label: "Schedule" },
+  { href: "/circuits", label: "Circuits" },
 ]
 
 export default function Navbar() {

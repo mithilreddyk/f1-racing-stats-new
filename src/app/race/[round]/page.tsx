@@ -1,5 +1,6 @@
 import { Suspense } from "react"
 import type { Metadata } from "next"
+import Link from "next/link"
 import { notFound } from "next/navigation"
 import { getSchedule, getRaceResult } from "@/lib/ergast"
 import { getTeamColor, getCountryFlag } from "@/lib/teamColors"
@@ -52,13 +53,25 @@ async function RaceContent({ round }: { round: string }) {
           </h1>
         </div>
         <p className="text-silver">
-          {race.Circuit.circuitName} &middot;{" "}
+          <Link
+            href={`/circuits/${race.Circuit.circuitId}`}
+            className="hover:text-white transition-colors"
+          >
+            {race.Circuit.circuitName}
+          </Link>{" "}
+          &middot;{" "}
           {race.Circuit.Location.locality},{" "}
           {race.Circuit.Location.country}
         </p>
-        <p className="text-sm text-silver/60">
-          {formatDate(race.date)} &middot; Round {race.round}
-        </p>
+        <div className="flex items-center gap-3 text-sm text-silver/60 mt-1">
+          <span>{formatDate(race.date)} &middot; Round {race.round}</span>
+          <Link
+            href={`/race/${race.round}/qualifying`}
+            className="text-scarlet hover:underline"
+          >
+            Qualifying Results
+          </Link>
+        </div>
       </div>
 
       {results.length === 0 ? (
@@ -126,9 +139,12 @@ async function RaceContent({ round }: { round: string }) {
                     </td>
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-2">
-                        <span className="font-semibold text-white">
+                        <Link
+                          href={`/drivers/${result.Driver.driverId}`}
+                          className="font-semibold text-white hover:text-scarlet transition-colors"
+                        >
                           {result.Driver.givenName} {result.Driver.familyName}
-                        </span>
+                        </Link>
                         {hasFastestLap && (
                           <span className="text-[10px] font-bold bg-purple-600/20 text-purple-400 px-1.5 py-0.5 rounded-full uppercase tracking-wider">
                             <GlossaryTooltip term="Fastest Lap">
@@ -139,12 +155,13 @@ async function RaceContent({ round }: { round: string }) {
                       </div>
                     </td>
                     <td className="py-3 px-4 hidden sm:table-cell">
-                      <span
-                        className="text-sm"
+                      <Link
+                        href={`/constructors/${result.Constructor.constructorId}`}
+                        className="text-sm hover:underline"
                         style={{ color: teamColor }}
                       >
                         {result.Constructor.name}
-                      </span>
+                      </Link>
                     </td>
                     <td className="py-3 px-4 text-right hidden md:table-cell">
                       <span className="font-mono text-sm text-silver">

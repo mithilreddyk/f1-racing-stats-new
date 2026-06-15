@@ -1,3 +1,4 @@
+import Link from "next/link"
 import type { ConstructorStanding } from "@/types/f1"
 import { getTeamColor, getCountryFlag } from "@/lib/teamColors"
 import GlossaryTooltip from "@/components/ui/GlossaryTooltip"
@@ -13,7 +14,8 @@ export default function TeamCard({ team, position }: TeamCardProps) {
   const isP1 = position === 1
 
   return (
-    <div
+    <Link href={`/constructors/${team.Constructor.constructorId}`}>
+      <div
       className={`group relative overflow-hidden rounded-xl border bg-pit p-6 transition-all duration-300 hover:scale-[1.02] ${
         isP1
           ? "border-gold/50 shadow-[0_0_20px_rgba(255,215,0,0.1)]"
@@ -65,5 +67,6 @@ export default function TeamCard({ team, position }: TeamCardProps) {
         style={{ backgroundColor: teamColor }}
       />
     </div>
+    </Link>
   )
 }

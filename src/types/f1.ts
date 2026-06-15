@@ -59,6 +59,7 @@ export interface Race {
   Qualifying?: Session
   Sprint?: Session
   Results?: RaceResult[]
+  QualifyingResults?: QualifyingResult[]
 }
 
 export interface Session {
@@ -114,6 +115,21 @@ export interface RaceTable {
   Races: Race[]
 }
 
+export interface QualifyingResult {
+  number: string
+  position: string
+  Driver: Driver
+  Constructor: Constructor
+  Q1: string
+  Q2?: string
+  Q3?: string
+}
+
+export interface CircuitTable {
+  season?: string
+  Circuits: Circuit[]
+}
+
 export interface MRData {
   xmlns: string
   series: string
@@ -123,6 +139,8 @@ export interface MRData {
   total: string
   StandingsTable?: StandingsTable
   RaceTable?: RaceTable
+  CircuitTable?: CircuitTable
+  DriverTable?: { season?: string; Drivers: Driver[] }
 }
 
 export interface ErgastResponse {

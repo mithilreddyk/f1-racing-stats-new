@@ -111,3 +111,87 @@ export function isRaceCurrent(race: Race): boolean {
   const raceEnd = new Date(raceDate.getTime() + 4 * 60 * 60 * 1000)
   return now >= raceDate && now <= raceEnd
 }
+
+export async function getQualifyingResult(
+  season: string,
+  round: string
+): Promise<{ race: Race; results: import("@/types/f1").QualifyingResult[] } | null> {
+  const data = await fetchErgast<ErgastResponse>(
+    `/${season}/${round}/qualifying`
+  )
+  const race = data?.MRData?.RaceTable?.Races?.[0]
+  if (!race?.QualifyingResults) return null
+  return { race, results: race.QualifyingResults }
+}
+
+export async function getCircuits(
+  limit: number = 80
+): Promise<import("@/types/f1").Circuit[] | null> {
+  const data = await fetchErgast<ErgastResponse>(
+    `/circuits.json?limit=${limit}`
+  )
+  if (!data?.MRData?.CircuitTable?.Circuits) return null
+  return data.MRData.CircuitTable.Circuits
+}
+
+export async function getDriverResults(
+  driverId: string,
+  season: string = CURRENT_SEASON
+): Promise<Race[] | null> {
+  const data = await fetchErgast<ErgastResponse>(
+    `/drivers/${driverId}/results?limit=100`
+  )
+  if (!data?.MRData?.RaceTable?.Races) return null
+  return data.MRData.RaceTable.Races
+}
+
+export async function getDriverAllResults(
+  driverId: string
+): Promise<Race[] | null> {
+  const data = await fetchErgast<ErgastResponse>(
+    `/drivers/${driverId}/results?limit=500`
+  )
+  if (!data?.MRData?.RaceTable?.Races) return null
+  return data.MRData.RaceTable.Races
+}
+
+export async function getConstructorResults(
+  constructorId: string,
+  season: string = CURRENT_SEASON
+): Promise<Race[] | null> {
+  const data = await fetchErgast<ErgastResponse>(
+    `/constructors/${constructorId}/results?limit=100`
+  )
+  if (!data?.MRData?.RaceTable?.Races) return null
+  return data.MRData.RaceTable.Races
+}
+
+export async function getDriverInfo(
+  driverId: string
+): Promise<import("@/types/f1").Driver | null> {
+  const data = await fetchErgast<ErgastResponse>(
+    `/drivers/${driverId}`
+  )
+  const driver = data?.MRData?.DriverTable?.Drivers?.[0]
+  return driver ?? null
+}
+
+export async function getCircuitInfo(
+  circuitId: string
+): Promise<import("@/types/f1").Circuit | null> {
+  const data = await fetchErgast<ErgastResponse>(
+    `/circuits/${circuitId}`
+  )
+  const circuit = data?.MRData?.CircuitTable?.Circuits?.[0]
+  return circuit ?? null
+}
+
+export async function getRaceResultsByYear(
+  season: string
+): Promise<Race[] | null> {
+  const data = await fetchErgast<ErgastResponse>(
+    `/${season}/results?limit=500`
+  )
+  if (!data?.MRData?.RaceTable?.Races) return null
+  return data.MRData.RaceTable.Races
+}
