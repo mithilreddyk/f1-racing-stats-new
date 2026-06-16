@@ -78,13 +78,9 @@ export default function RaceCard({ race, isNext = false }: RaceCardProps) {
             <h3 className="font-semibold text-white text-lg truncate group-hover:text-scarlet transition-colors">
               {race.raceName}
             </h3>
-            <Link
-              href={`/circuits/${race.Circuit.circuitId}`}
-              className="text-sm text-silver hover:text-white transition-colors"
-              onClick={(e) => e.stopPropagation()}
-            >
+            <p className="text-sm text-silver">
               {race.Circuit.circuitName}
-            </Link>
+            </p>
             <p className="text-xs text-silver/60 mt-1">
               {race.Circuit.Location.locality},{" "}
               {race.Circuit.Location.country}

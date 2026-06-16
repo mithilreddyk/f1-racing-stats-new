@@ -5,13 +5,54 @@ import { getTeamColor, getCountryFlag, getTeamInsights } from "@/lib/teamColors"
 interface TeamCardProps {
   team: ConstructorStanding
   position: number
+  compact?: boolean
 }
 
-export default function TeamCard({ team, position }: TeamCardProps) {
+export default function TeamCard({ team, position, compact = false }: TeamCardProps) {
   const teamColor = getTeamColor(team.Constructor.name)
   const flag = getCountryFlag(team.Constructor.nationality)
   const insights = getTeamInsights(team.Constructor.name)
   const isP1 = position === 1
+
+  if (compact) {
+    return (
+      <Link href={`/constructors/${team.Constructor.constructorId}`}>
+        <div className="group flex items-center gap-3 p-3 rounded-xl bg-pit border border-asphalt hover:border-scarlet/30 transition-all duration-300 overflow-hidden relative">
+          <div
+            className="w-1 self-stretch rounded-full flex-shrink-0"
+            style={{ backgroundColor: teamColor }}
+          />
+          <div
+            className="flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center font-mono text-xs font-bold"
+            style={{
+              backgroundColor: isP1 ? "rgba(255,215,0,0.12)" : "rgba(42,42,42,0.8)",
+              color: isP1 ? "#FFD700" : "#C0C0C0",
+            }}
+          >
+            {position}
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="font-semibold text-white text-sm truncate group-hover:text-scarlet transition-colors">
+              {team.Constructor.name}
+            </p>
+            <p className="text-xs text-silver mt-0.5">
+              {flag} {team.Constructor.nationality}
+              {insights && (
+                <span className="text-asphalt mx-1.5">·</span>
+              )}
+              {insights && (
+                <span style={{ color: teamColor }}>{insights.engine}</span>
+              )}
+            </p>
+          </div>
+          <div className="text-right flex-shrink-0">
+            <p className="font-mono font-bold text-white text-lg leading-none">{team.points}</p>
+            <p className="text-[11px] text-silver mt-0.5">{team.wins}W</p>
+          </div>
+        </div>
+      </Link>
+    )
+  }
 
   return (
     <Link href={`/constructors/${team.Constructor.constructorId}`}>

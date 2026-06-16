@@ -84,7 +84,7 @@ export default function Navbar() {
         </div>
 
         {mobileOpen && (
-          <div className="md:hidden pb-4 border-t border-asphalt pt-2">
+          <div className="md:hidden pb-4 border-t border-asphalt pt-2 space-y-1">
             {navLinks.map((link) => {
               const isActive =
                 link.href === "/"
@@ -105,6 +105,9 @@ export default function Navbar() {
                 </Link>
               )
             })}
+            <div className="px-4 pt-2">
+              <SeasonSelector currentSeason={currentSeason} />
+            </div>
           </div>
         )}
       </nav>

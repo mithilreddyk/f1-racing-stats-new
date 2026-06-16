@@ -65,6 +65,7 @@ export default function StandingsPreview({
                 key={c.Constructor.constructorId}
                 team={c}
                 position={parseInt(c.position, 10)}
+                compact
               />
             ))
           ) : (

@@ -91,7 +91,7 @@ export default function HomePage() {
       fallback={
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
           <HeroSkeleton />
-          <div className="grid grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
             {Array.from({ length: 4 }).map((_, i) => (
               <div key={i} className="h-24 rounded-xl bg-pit border border-asphalt animate-pulse" />
             ))}
