@@ -5,12 +5,21 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import SeasonSelector from "@/components/ui/SeasonSelector"
 
-const navLinks = [
+const f1Links = [
   { href: "/", label: "Home" },
   { href: "/drivers", label: "Drivers" },
   { href: "/constructors", label: "Teams" },
   { href: "/schedule", label: "Schedule" },
 ]
+
+const motoLinks = [
+  { href: "/motogp", label: "Home" },
+  { href: "/motogp/riders", label: "Riders" },
+  { href: "/motogp/teams", label: "Teams" },
+  { href: "/motogp/schedule", label: "Schedule" },
+]
+
+const isMotoPath = (pathname: string) => pathname.startsWith("/motogp")
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -30,18 +39,37 @@ export default function Navbar() {
           </Link>
 
           <div className="hidden md:flex items-center gap-1">
-            {navLinks.map((link) => {
+            <span className="text-[10px] text-silver/40 uppercase tracking-widest font-semibold px-2">F1</span>
+            {f1Links.map((link) => {
               const isActive =
                 link.href === "/"
                   ? pathname === "/"
-                  : pathname.startsWith(link.href)
+                  : pathname.startsWith(link.href) && !isMotoPath(pathname)
               return (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                     isActive
                       ? "text-scarlet bg-scarlet/10"
+                      : "text-silver hover:text-white hover:bg-pit"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              )
+            })}
+            <span className="w-px h-6 bg-asphalt mx-2" />
+            <span className="text-[10px] text-silver/40 uppercase tracking-widest font-semibold px-2">MotoGP</span>
+            {motoLinks.map((link) => {
+              const isActive = pathname.startsWith(link.href)
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                    isActive
+                      ? "text-[#cc0000] bg-[#cc0000]/10"
                       : "text-silver hover:text-white hover:bg-pit"
                   }`}
                 >
@@ -84,12 +112,13 @@ export default function Navbar() {
         </div>
 
         {mobileOpen && (
-          <div className="md:hidden pb-4 border-t border-asphalt pt-2">
-            {navLinks.map((link) => {
+          <div className="md:hidden pb-4 border-t border-asphalt pt-2 space-y-1">
+            <p className="px-4 py-1 text-[10px] text-silver/40 uppercase tracking-widest font-semibold">F1</p>
+            {f1Links.map((link) => {
               const isActive =
                 link.href === "/"
                   ? pathname === "/"
-                  : pathname.startsWith(link.href)
+                  : pathname.startsWith(link.href) && !isMotoPath(pathname)
               return (
                 <Link
                   key={link.href}
@@ -98,6 +127,25 @@ export default function Navbar() {
                   className={`block px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
                     isActive
                       ? "text-scarlet bg-scarlet/10"
+                      : "text-silver hover:text-white hover:bg-pit"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              )
+            })}
+            <div className="border-t border-asphalt my-2" />
+            <p className="px-4 py-1 text-[10px] text-silver/40 uppercase tracking-widest font-semibold">MotoGP</p>
+            {motoLinks.map((link) => {
+              const isActive = pathname.startsWith(link.href)
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMobileOpen(false)}
+                  className={`block px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+                    isActive
+                      ? "text-[#cc0000] bg-[#cc0000]/10"
                       : "text-silver hover:text-white hover:bg-pit"
                   }`}
                 >
