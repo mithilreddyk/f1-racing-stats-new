@@ -74,7 +74,7 @@ const teamInsights: Record<string, {
   McLaren: {
     principal: "Andrea Stella",
     engine: "Mercedes",
-    chassis: "MCL60",
+    chassis: "MCL39",
     base: "Woking, UK",
     founded: "1966",
     titles: 8,

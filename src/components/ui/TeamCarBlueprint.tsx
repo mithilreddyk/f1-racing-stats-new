@@ -10,210 +10,210 @@ export default function TeamCarBlueprint({
   className = "",
 }: TeamCarBlueprintProps) {
   return (
-    <div className={`bg-[#0A1628] border border-${teamColor.replace("#", "")}/30 rounded-xl p-6 ${className}`}>
+    <div
+      className={`rounded-xl p-6 ${className}`}
+      style={{
+        background: "#0A1628",
+        border: `1px solid ${teamColor}33`,
+      }}
+    >
       <div className="flex items-center gap-2 mb-4">
         <div className="w-2 h-2 rounded-full" style={{ backgroundColor: teamColor }} />
         <h3 className="text-sm font-bold text-white font-display tracking-wide uppercase">
           {teamName} — Technical Blueprint
         </h3>
       </div>
+
       <svg
-        viewBox="0 0 800 400"
+        viewBox="0 0 800 380"
         className="w-full"
         xmlns="http://www.w3.org/2000/svg"
       >
-        {/* Grid lines for blueprint feel */}
         <defs>
-          <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-            <path d="M 40 0 L 0 0 0 40" fill="none" stroke={teamColor} strokeWidth="0.3" opacity="0.15" />
+          <pattern id="bp-grid" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke={teamColor} strokeWidth="0.3" opacity="0.2" />
           </pattern>
-          <linearGradient id="carGrad" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor={teamColor} stopOpacity="0.4" />
-            <stop offset="100%" stopColor={teamColor} stopOpacity="0.05" />
+          <linearGradient id="bp-body" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0%" stopColor={teamColor} stopOpacity="0.45" />
+            <stop offset="60%" stopColor={teamColor} stopOpacity="0.25" />
+            <stop offset="100%" stopColor={teamColor} stopOpacity="0.08" />
           </linearGradient>
         </defs>
-        <rect width="800" height="400" fill="url(#grid)" />
 
-        {/* Dimension lines around car */}
-        <line x1="30" y1="50" x2="30" y2="350" stroke={teamColor} strokeWidth="0.5" opacity="0.3" />
-        <line x1="770" y1="50" x2="770" y2="350" stroke={teamColor} strokeWidth="0.5" opacity="0.3" />
-        <line x1="30" y1="50" x2="770" y2="50" stroke={teamColor} strokeWidth="0.5" opacity="0.3" />
-        <line x1="30" y1="350" x2="770" y2="350" stroke={teamColor} strokeWidth="0.5" opacity="0.3" />
-        <text x="400" y="30" fill={teamColor} fontSize="9" textAnchor="middle" fontFamily="monospace" opacity="0.4">
-          OVERALL LENGTH: 5200mm
-        </text>
-        <text x="400" y="370" fill={teamColor} fontSize="9" textAnchor="middle" fontFamily="monospace" opacity="0.4">
-          WHEELBASE: 3600mm | FRONT TRACK: 1650mm | REAR TRACK: 1580mm
-        </text>
+        {/* Blueprint grid background */}
+        <rect width="800" height="380" fill="url(#bp-grid)" />
 
-        {/* Main body top view */}
+        {/* Outer bounding box */}
+        <rect x="28" y="28" width="744" height="324" fill="none" stroke={teamColor} strokeWidth="0.5" opacity="0.25" strokeDasharray="4,4" />
+
+        {/* ─── MAIN BODY (top-down view, front = LEFT at x≈55) ─── */}
+        {/* Single clean closed path for the monocoque + sidepods */}
         <path
-          d="M380,100 L400,95 L420,100 L440,108 L460,115 L480,120 L500,122 L520,124 L540,125 L560,126 L580,128 L600,130 L620,132 L640,135 L660,140 L680,145
-             Q700,152 720,158 L740,165 L755,172 L762,180 L765,190 L760,200 L750,208 L735,212 L720,215 L700,218 L680,220 L660,222 L640,224 L620,226 L600,228 L580,230 L560,232 L540,234 L520,236 L500,238 L480,240 L460,242 L440,245 L420,250 L400,255 L385,260 L375,265 L370,272 L368,280 L370,288 L378,295 L390,300 L405,302 L420,300 L435,295 L445,288 L450,280 L448,272 L442,265 L432,260 L418,258 L405,258 L395,262 L388,270 L385,280 L388,290 L395,298
-             L388,290 L385,280 L388,270 L395,262 L405,258 L418,258 L432,260 L442,265 L448,272 L450,280 L445,288 L435,295 L420,300 L405,302 L390,300 L378,295 L370,288 L368,280 L370,272 L375,265 L385,260 L400,255 L420,250 L440,245 L460,242 L480,240 L500,238 L520,236 L540,234 L560,232 L580,230 L600,228 L620,226 L640,224 L660,222 L680,220 L700,218 L720,215 L735,212 L750,208 L760,200 L765,190 L762,180 L755,172 L740,165 L720,158 Q700,152 680,145 L660,140 L640,135 L620,132 L600,130 L580,128 L560,126 L540,125 L520,124 L500,122 L480,120 L460,115 L440,108 L420,100 L400,95 Z"
-          fill="url(#carGrad)"
+          d={`
+            M 55,190
+            C 80,184 140,172 230,160
+            C 295,151 360,136 450,122
+            C 495,116 530,114 560,116
+            C 590,118 620,126 650,136
+            L 668,144
+            L 668,148
+            L 668,232
+            L 650,244
+            C 620,254 590,262 560,264
+            C 530,266 495,264 450,258
+            C 360,244 295,229 230,220
+            C 140,208 80,198 55,190
+            Z
+          `}
+          fill="url(#bp-body)"
           stroke={teamColor}
-          strokeWidth="1.5"
-          opacity="0.8"
+          strokeWidth="1.8"
+          opacity="0.9"
         />
 
-        {/* Nose cone */}
+        {/* Cockpit cutout / driver area */}
+        <ellipse cx="350" cy="190" rx="52" ry="28" fill="#0A1628" stroke={teamColor} strokeWidth="1.2" opacity="0.8" />
+        <ellipse cx="350" cy="190" rx="36" ry="18" fill="none" stroke={teamColor} strokeWidth="0.6" opacity="0.4" strokeDasharray="3,2" />
+
+        {/* Halo (top-down: two arcs framing the cockpit opening) */}
+        <path d="M 300,180 Q 350,162 400,180" fill="none" stroke={teamColor} strokeWidth="3.5" opacity="0.7" strokeLinecap="round" />
+        <path d="M 300,200 Q 350,218 400,200" fill="none" stroke={teamColor} strokeWidth="3.5" opacity="0.7" strokeLinecap="round" />
+
+        {/* Engine cover / airbox (behind cockpit) */}
         <path
-          d="M380,100 Q360,95 340,95 L320,98 L300,102 L280,108 L260,115 L245,122 L235,130 L230,140 L228,150 L230,160 L235,168 L245,172 L260,175 L280,178 L300,180 L320,182 L340,183 L360,184 L380,185"
-          fill="none"
-          stroke={teamColor}
-          strokeWidth="1.5"
-          opacity="0.7"
-        />
-        <path
-          d="M230,140 L220,142 L210,148 L205,155 L210,162 L220,165 L230,168"
+          d="M 405,175 L 435,170 L 490,165 L 530,162 L 560,162 L 560,218 L 530,218 L 490,215 L 435,210 L 405,205 Z"
           fill="none"
           stroke={teamColor}
           strokeWidth="1"
           opacity="0.5"
         />
+        {/* Airbox intake */}
+        <ellipse cx="415" cy="190" rx="10" ry="14" fill="none" stroke={teamColor} strokeWidth="1" opacity="0.5" />
 
-        {/* Front wing */}
+        {/* Floor / underfloor edges (dashed) */}
+        <path d="M 230,170 L 560,155" fill="none" stroke={teamColor} strokeWidth="0.7" strokeDasharray="4,3" opacity="0.35" />
+        <path d="M 230,210 L 560,225" fill="none" stroke={teamColor} strokeWidth="0.7" strokeDasharray="4,3" opacity="0.35" />
+
+        {/* ─── FRONT WING ─── */}
+        {/* Main plane */}
         <path
-          d="M180,155 L160,140 L140,130 L120,125 L100,122 L80,125 L65,132 L55,142 L50,155 L55,168 L65,178 L80,185 L100,188 L120,185 L140,180 L160,170 L180,155"
+          d="M 55,190 L 62,136 L 72,116 L 88,108 L 106,108 L 118,114 L 128,126 L 135,145 L 138,164"
           fill="none"
           stroke={teamColor}
-          strokeWidth="1.2"
-          opacity="0.6"
+          strokeWidth="1.4"
+          opacity="0.75"
         />
-        {/* Front wing endplates */}
-        <line x1="100" y1="122" x2="100" y2="188" stroke={teamColor} strokeWidth="0.8" opacity="0.4" />
-        <line x1="80" y1="125" x2="80" y2="185" stroke={teamColor} strokeWidth="0.8" opacity="0.4" />
-
-        {/* Rear wing */}
         <path
-          d="M680,145 L700,130 L720,120 L740,115 L755,118 L765,125 L770,138 L768,150 L760,160 L745,165 L730,162 L715,155 L700,148"
+          d="M 55,190 L 62,244 L 72,264 L 88,272 L 106,272 L 118,266 L 128,254 L 135,235 L 138,216"
           fill="none"
           stroke={teamColor}
-          strokeWidth="1.2"
-          opacity="0.6"
+          strokeWidth="1.4"
+          opacity="0.75"
+        />
+        {/* Endplates */}
+        <line x1="88" y1="108" x2="88" y2="272" stroke={teamColor} strokeWidth="1" opacity="0.5" />
+        <line x1="118" y1="108" x2="118" y2="272" stroke={teamColor} strokeWidth="1" opacity="0.5" />
+        {/* Wing elements (stacked) */}
+        <path d="M 70,152 L 138,158" fill="none" stroke={teamColor} strokeWidth="0.6" opacity="0.35" strokeDasharray="3,2" />
+        <path d="M 70,164 L 138,170" fill="none" stroke={teamColor} strokeWidth="0.6" opacity="0.35" strokeDasharray="3,2" />
+        <path d="M 70,216 L 138,210" fill="none" stroke={teamColor} strokeWidth="0.6" opacity="0.35" strokeDasharray="3,2" />
+        <path d="M 70,228 L 138,222" fill="none" stroke={teamColor} strokeWidth="0.6" opacity="0.35" strokeDasharray="3,2" />
+
+        {/* ─── REAR WING ─── */}
+        {/* Main plane */}
+        <path
+          d="M 668,144 L 672,100 L 690,82 L 716,76 L 738,80 L 754,92 L 758,108 L 756,126 L 748,136 L 728,142 L 700,144"
+          fill="none"
+          stroke={teamColor}
+          strokeWidth="1.4"
+          opacity="0.75"
+        />
+        <path
+          d="M 668,232 L 672,280 L 690,298 L 716,304 L 738,300 L 754,288 L 758,272 L 756,254 L 748,244 L 728,238 L 700,236"
+          fill="none"
+          stroke={teamColor}
+          strokeWidth="1.4"
+          opacity="0.75"
         />
         {/* Rear wing endplates */}
-        <line x1="740" y1="115" x2="745" y2="165" stroke={teamColor} strokeWidth="0.8" opacity="0.4" />
-        <line x1="720" y1="120" x2="715" y2="155" stroke={teamColor} strokeWidth="0.8" opacity="0.4" />
-
-        {/* Rear wing main plane */}
-        <path
-          d="M700,130 L680,145 L700,148 L720,145 L740,140 L755,135"
-          fill="none"
-          stroke={teamColor}
-          strokeWidth="1"
-          opacity="0.4"
-        />
-
-        {/* Front wheels */}
-        <ellipse cx="300" cy="118" rx="18" ry="10" fill="none" stroke={teamColor} strokeWidth="1.5" opacity="0.7" />
-        <ellipse cx="300" cy="220" rx="18" ry="10" fill="none" stroke={teamColor} strokeWidth="1.5" opacity="0.7" />
-        <line x1="285" y1="118" x2="285" y2="220" stroke={teamColor} strokeWidth="0.5" opacity="0.3" />
-
-        {/* Rear wheels */}
-        <ellipse cx="620" cy="115" rx="22" ry="12" fill="none" stroke={teamColor} strokeWidth="1.5" opacity="0.7" />
-        <ellipse cx="620" cy="225" rx="22" ry="12" fill="none" stroke={teamColor} strokeWidth="1.5" opacity="0.7" />
-        <line x1="602" y1="115" x2="602" y2="225" stroke={teamColor} strokeWidth="0.5" opacity="0.3" />
-
-        {/* Halo (top view) */}
-        <path
-          d="M400,140 Q410,130 420,125 L440,120 L460,118 L480,120 L495,125 L505,132 L510,142"
-          fill="none"
-          stroke={teamColor}
-          strokeWidth="1"
-          opacity="0.5"
-        />
-
-        {/* Cockpit opening */}
-        <ellipse cx="440" cy="170" rx="30" ry="18" fill="none" stroke={teamColor} strokeWidth="1" opacity="0.4" />
-
-        {/* Engine cover / airbox */}
-        <path
-          d="M510,142 L520,138 L540,132 L560,128 L580,126 L600,128 L615,132 L625,140 L625,150 L615,158 L600,162 L580,165 L560,165 L540,162 L520,158 L510,150 Z"
-          fill="none"
-          stroke={teamColor}
-          strokeWidth="0.8"
-          opacity="0.4"
-        />
-
-        {/* Floor / diffuser edges */}
-        <path
-          d="M200,165 L220,162 L250,158 L280,155 L310,152 L340,150 L370,150 L400,150"
-          fill="none"
-          stroke={teamColor}
-          strokeWidth="0.6"
-          opacity="0.3"
-          strokeDasharray="3,3"
-        />
-        <path
-          d="M200,175 L220,178 L250,182 L280,185 L310,188 L340,190 L370,190 L400,190"
-          fill="none"
-          stroke={teamColor}
-          strokeWidth="0.6"
-          opacity="0.3"
-          strokeDasharray="3,3"
-        />
-
-        {/* Sidepod outlines */}
-        <path
-          d="M380,150 Q420,145 460,148 L500,155 L530,162 L550,170 L560,180 L555,190 L540,195 L520,192 L500,185 L480,178 L460,175 L440,175 L420,178 L400,182 L385,188"
-          fill="none"
-          stroke={teamColor}
-          strokeWidth="0.8"
-          opacity="0.35"
-        />
-        <path
-          d="M380,185 Q420,190 460,192 L500,192 L530,188 L560,182 L580,175 L590,168 L585,158 L570,152 L545,150 L520,152 L495,158 L475,165 L455,170 L435,172 L415,170 L400,165 L390,158"
-          fill="none"
-          stroke={teamColor}
-          strokeWidth="0.8"
-          opacity="0.35"
-        />
+        <line x1="738" y1="80" x2="738" y2="300" stroke={teamColor} strokeWidth="1" opacity="0.5" />
+        <line x1="716" y1="76" x2="716" y2="304" stroke={teamColor} strokeWidth="1" opacity="0.5" />
+        {/* DRS flap */}
+        <path d="M 672,110 L 756,110" fill="none" stroke={teamColor} strokeWidth="0.6" opacity="0.35" strokeDasharray="3,2" />
+        <path d="M 672,270 L 756,270" fill="none" stroke={teamColor} strokeWidth="0.6" opacity="0.35" strokeDasharray="3,2" />
+        {/* Rear wing beam / support */}
+        <line x1="668" y1="188" x2="670" y2="192" stroke={teamColor} strokeWidth="2" opacity="0.4" />
+        <line x1="716" y1="76" x2="720" y2="144" stroke={teamColor} strokeWidth="1" opacity="0.3" />
+        <line x1="716" y1="304" x2="720" y2="236" stroke={teamColor} strokeWidth="1" opacity="0.3" />
 
         {/* Diffuser */}
         <path
-          d="M650,165 L670,162 L690,160 L710,162 L720,168 L710,172 L690,175 L670,175 L650,172 Z"
+          d="M 650,155 L 668,148 L 668,144"
           fill="none"
           stroke={teamColor}
           strokeWidth="1"
-          opacity="0.5"
+          opacity="0.4"
         />
+        <path
+          d="M 650,225 L 668,232 L 668,236"
+          fill="none"
+          stroke={teamColor}
+          strokeWidth="1"
+          opacity="0.4"
+        />
+        <rect x="655" y="170" width="22" height="40" rx="2" fill="none" stroke={teamColor} strokeWidth="0.8" opacity="0.4" strokeDasharray="2,2" />
 
-        {/* Measurement annotations */}
-        <line x1="300" y1="90" x2="300" y2="105" stroke={teamColor} strokeWidth="0.5" opacity="0.4" />
-        <line x1="300" y1="90" x2="620" y2="90" stroke={teamColor} strokeWidth="0.5" opacity="0.4" strokeDasharray="2,4" />
-        <line x1="620" y1="90" x2="620" y2="102" stroke={teamColor} strokeWidth="0.5" opacity="0.4" />
-        <text x="460" y="88" fill={teamColor} fontSize="8" textAnchor="middle" fontFamily="monospace" opacity="0.4">
-          3600mm
-        </text>
+        {/* ─── FRONT WHEELS ─── */}
+        {/* Oval top-down tires */}
+        <ellipse cx="200" cy="102" rx="14" ry="34" fill="none" stroke={teamColor} strokeWidth="2" opacity="0.7" />
+        <ellipse cx="200" cy="102" rx="6" ry="18" fill="none" stroke={teamColor} strokeWidth="0.8" opacity="0.35" />
+        <ellipse cx="200" cy="278" rx="14" ry="34" fill="none" stroke={teamColor} strokeWidth="2" opacity="0.7" />
+        <ellipse cx="200" cy="278" rx="6" ry="18" fill="none" stroke={teamColor} strokeWidth="0.8" opacity="0.35" />
+        {/* Front axle line */}
+        <line x1="200" y1="136" x2="200" y2="158" stroke={teamColor} strokeWidth="1.5" opacity="0.5" />
+        <line x1="200" y1="222" x2="200" y2="244" stroke={teamColor} strokeWidth="1.5" opacity="0.5" />
 
-        {/* Part labels */}
-        <text x="120" y="155" fill={teamColor} fontSize="7" textAnchor="middle" fontFamily="monospace" opacity="0.5">FRONT WING</text>
-        <text x="440" y="210" fill={teamColor} fontSize="7" textAnchor="middle" fontFamily="monospace" opacity="0.5">COCKPIT</text>
-        <text x="550" y="210" fill={teamColor} fontSize="7" textAnchor="middle" fontFamily="monospace" opacity="0.5">ENGINE COVER</text>
-        <text x="730" y="155" fill={teamColor} fontSize="7" textAnchor="middle" fontFamily="monospace" opacity="0.5">REAR WING</text>
-        <text x="240" y="235" fill={teamColor} fontSize="7" textAnchor="middle" fontFamily="monospace" opacity="0.5">FLOOR</text>
-        <text x="610" y="238" fill={teamColor} fontSize="7" textAnchor="middle" fontFamily="monospace" opacity="0.5">DIFFUSER</text>
+        {/* ─── REAR WHEELS ─── */}
+        <ellipse cx="580" cy="88" rx="18" ry="40" fill="none" stroke={teamColor} strokeWidth="2" opacity="0.7" />
+        <ellipse cx="580" cy="88" rx="8" ry="22" fill="none" stroke={teamColor} strokeWidth="0.8" opacity="0.35" />
+        <ellipse cx="580" cy="292" rx="18" ry="40" fill="none" stroke={teamColor} strokeWidth="2" opacity="0.7" />
+        <ellipse cx="580" cy="292" rx="8" ry="22" fill="none" stroke={teamColor} strokeWidth="0.8" opacity="0.35" />
+        {/* Rear axle line */}
+        <line x1="580" y1="128" x2="580" y2="148" stroke={teamColor} strokeWidth="1.5" opacity="0.5" />
+        <line x1="580" y1="232" x2="580" y2="252" stroke={teamColor} strokeWidth="1.5" opacity="0.5" />
 
-        {/* Legend */}
-        <line x1="30" y1="290" x2="70" y2="290" stroke={teamColor} strokeWidth="1.5" opacity="0.6" />
-        <text x="75" y="293" fill={teamColor} fontSize="8" fontFamily="monospace" opacity="0.5">MONOCOQUE CHASSIS</text>
-        <line x1="30" y1="305" x2="70" y2="305" stroke={teamColor} strokeWidth="0.6" opacity="0.4" strokeDasharray="3,3" />
-        <text x="75" y="308" fill={teamColor} fontSize="8" fontFamily="monospace" opacity="0.5">AERODYNAMIC SURFACE</text>
-        <line x1="30" y1="320" x2="70" y2="320" stroke={teamColor} strokeWidth="0.8" opacity="0.35" />
-        <text x="75" y="323" fill={teamColor} fontSize="8" fontFamily="monospace" opacity="0.5">SIDEPOD / BODYWORK</text>
+        {/* ─── WHEELBASE DIMENSION ─── */}
+        <line x1="200" y1="50" x2="200" y2="62" stroke={teamColor} strokeWidth="0.7" opacity="0.45" />
+        <line x1="580" y1="50" x2="580" y2="62" stroke={teamColor} strokeWidth="0.7" opacity="0.45" />
+        <line x1="200" y1="55" x2="580" y2="55" stroke={teamColor} strokeWidth="0.7" opacity="0.45" />
+        <text x="390" y="48" fill={teamColor} fontSize="8.5" textAnchor="middle" fontFamily="monospace" opacity="0.55">WHEELBASE: 3600mm</text>
 
-        {/* Tire specs */}
-        <text x="750" y="290" fill={teamColor} fontSize="7" textAnchor="end" fontFamily="monospace" opacity="0.4">
-          TIRES: 305/720-18 (F) | 405/720-18 (R)
-        </text>
-        <text x="750" y="305" fill={teamColor} fontSize="7" textAnchor="end" fontFamily="monospace" opacity="0.4">
-          WEIGHT: 798kg (inc. driver)
-        </text>
-        <text x="750" y="320" fill={teamColor} fontSize="7" textAnchor="end" fontFamily="monospace" opacity="0.4">
-          POWER: ~1000hp (ICE + ERS)
-        </text>
+        {/* Overall length dimension */}
+        <line x1="55" y1="345" x2="55" y2="333" stroke={teamColor} strokeWidth="0.7" opacity="0.45" />
+        <line x1="758" y1="345" x2="758" y2="333" stroke={teamColor} strokeWidth="0.7" opacity="0.45" />
+        <line x1="55" y1="340" x2="758" y2="340" stroke={teamColor} strokeWidth="0.7" opacity="0.45" />
+        <text x="407" y="355" fill={teamColor} fontSize="8.5" textAnchor="middle" fontFamily="monospace" opacity="0.55">OVERALL LENGTH: 5695mm</text>
+
+        {/* ─── PART LABELS ─── */}
+        <text x="95" y="195" fill={teamColor} fontSize="7" textAnchor="middle" fontFamily="monospace" opacity="0.55" transform="rotate(-90, 95, 195)">FRONT WING</text>
+        <text x="350" y="182" fill={teamColor} fontSize="7" textAnchor="middle" fontFamily="monospace" opacity="0.55">COCKPIT</text>
+        <text x="480" y="148" fill={teamColor} fontSize="7" textAnchor="middle" fontFamily="monospace" opacity="0.55">ENGINE COVER</text>
+        <text x="710" y="195" fill={teamColor} fontSize="7" textAnchor="middle" fontFamily="monospace" opacity="0.55" transform="rotate(-90, 710, 195)">REAR WING</text>
+        <text x="200" y="192" fill={teamColor} fontSize="7" textAnchor="middle" fontFamily="monospace" opacity="0.45">F.AXL</text>
+        <text x="580" y="192" fill={teamColor} fontSize="7" textAnchor="middle" fontFamily="monospace" opacity="0.45">R.AXL</text>
+
+        {/* ─── LEGEND ─── */}
+        <line x1="36" y1="296" x2="66" y2="296" stroke={teamColor} strokeWidth="1.8" opacity="0.65" />
+        <text x="72" y="300" fill={teamColor} fontSize="8" fontFamily="monospace" opacity="0.55">MONOCOQUE CHASSIS</text>
+        <line x1="36" y1="310" x2="66" y2="310" stroke={teamColor} strokeWidth="0.8" strokeDasharray="4,3" opacity="0.5" />
+        <text x="72" y="314" fill={teamColor} fontSize="8" fontFamily="monospace" opacity="0.55">AERODYNAMIC SURFACE</text>
+        <line x1="36" y1="324" x2="66" y2="324" stroke={teamColor} strokeWidth="1.2" opacity="0.45" />
+        <text x="72" y="328" fill={teamColor} fontSize="8" fontFamily="monospace" opacity="0.55">SUSPENSION / AXLE</text>
+
+        {/* ─── SPECS (bottom right) ─── */}
+        <text x="762" y="296" fill={teamColor} fontSize="7.5" textAnchor="end" fontFamily="monospace" opacity="0.5">TIRES: 305/720-18 (F) · 405/720-18 (R)</text>
+        <text x="762" y="310" fill={teamColor} fontSize="7.5" textAnchor="end" fontFamily="monospace" opacity="0.5">MIN WEIGHT: 798 kg (inc. driver)</text>
+        <text x="762" y="324" fill={teamColor} fontSize="7.5" textAnchor="end" fontFamily="monospace" opacity="0.5">POWER UNIT: ~1000 hp (ICE + ERS)</text>
       </svg>
     </div>
   )
