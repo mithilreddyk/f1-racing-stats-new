@@ -6,7 +6,7 @@ import { getTeamColor, getCountryFlag, getTeamInsights } from "@/lib/teamColors"
 import { getStatusDisplay } from "@/lib/utils"
 import { HeroSkeleton } from "@/components/ui/Skeleton"
 import TeamCarBg from "@/components/ui/TeamCarBg"
-import TeamCarBlueprint from "@/components/ui/TeamCarBlueprint"
+import TeamCarImage from "@/components/ui/TeamCarImage"
 import Link from "next/link"
 
 interface ConstructorPageProps {
@@ -173,13 +173,13 @@ async function ConstructorContent({ id }: { id: string }) {
           </div>
         )}
 
-        {/* ─── TECHNICAL BLUEPRINT ─── */}
+        {/* ─── CAR IMAGE ─── */}
         <div className="mb-10 relative z-10">
           <h2 className="text-xl font-bold text-white font-display tracking-wide mb-4 flex items-center gap-2">
             <span className="w-1 h-5 rounded-full inline-block" style={{ backgroundColor: color }} />
-            Car Blueprint
+            2025 Car
           </h2>
-          <TeamCarBlueprint teamColor={color} teamName={team.Constructor.name} />
+          <TeamCarImage teamName={team.Constructor.name} teamColor={color} />
         </div>
 
         {/* ─── TEAM INSIGHTS ─── */}
