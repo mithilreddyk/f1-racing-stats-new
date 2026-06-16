@@ -31,8 +31,134 @@ const teamNationality: Record<string, string> = {
   Haas: "USA",
 }
 
+const teamInsights: Record<string, {
+  principal: string
+  engine: string
+  chassis: string
+  base: string
+  founded: string
+  titles: number
+}> = {
+  "Red Bull Racing": {
+    principal: "Christian Horner",
+    engine: "Honda RBPT",
+    chassis: "RB21",
+    base: "Milton Keynes, UK",
+    founded: "2005",
+    titles: 6,
+  },
+  "Red Bull": {
+    principal: "Christian Horner",
+    engine: "Honda RBPT",
+    chassis: "RB21",
+    base: "Milton Keynes, UK",
+    founded: "2005",
+    titles: 6,
+  },
+  Ferrari: {
+    principal: "Frédéric Vasseur",
+    engine: "Ferrari",
+    chassis: "SF-25",
+    base: "Maranello, Italy",
+    founded: "1950",
+    titles: 16,
+  },
+  Mercedes: {
+    principal: "Toto Wolff",
+    engine: "Mercedes",
+    chassis: "W16",
+    base: "Brackley, UK",
+    founded: "2010",
+    titles: 8,
+  },
+  McLaren: {
+    principal: "Andrea Stella",
+    engine: "Mercedes",
+    chassis: "MCL60",
+    base: "Woking, UK",
+    founded: "1966",
+    titles: 8,
+  },
+  "Aston Martin": {
+    principal: "Andy Cowell",
+    engine: "Mercedes",
+    chassis: "AMR25",
+    base: "Silverstone, UK",
+    founded: "2021",
+    titles: 0,
+  },
+  Alpine: {
+    principal: "Oliver Oakes",
+    engine: "Renault",
+    chassis: "A525",
+    base: "Enstone, UK",
+    founded: "2021",
+    titles: 0,
+  },
+  "Alpine F1 Team": {
+    principal: "Oliver Oakes",
+    engine: "Renault",
+    chassis: "A525",
+    base: "Enstone, UK",
+    founded: "2021",
+    titles: 0,
+  },
+  Williams: {
+    principal: "James Vowles",
+    engine: "Mercedes",
+    chassis: "FW47",
+    base: "Grove, UK",
+    founded: "1977",
+    titles: 9,
+  },
+  "RB F1 Team": {
+    principal: "Laurent Mekies",
+    engine: "Honda RBPT",
+    chassis: "VCARB 02",
+    base: "Faenza, Italy",
+    founded: "2006",
+    titles: 0,
+  },
+  "RB": {
+    principal: "Laurent Mekies",
+    engine: "Honda RBPT",
+    chassis: "VCARB 02",
+    base: "Faenza, Italy",
+    founded: "2006",
+    titles: 0,
+  },
+  "Kick Sauber": {
+    principal: "Mattia Binotto",
+    engine: "Ferrari",
+    chassis: "C45",
+    base: "Hinwil, Switzerland",
+    founded: "1993",
+    titles: 0,
+  },
+  "Haas F1 Team": {
+    principal: "Ayao Komatsu",
+    engine: "Ferrari",
+    chassis: "VF-25",
+    base: "Kannapolis, USA",
+    founded: "2016",
+    titles: 0,
+  },
+  Haas: {
+    principal: "Ayao Komatsu",
+    engine: "Ferrari",
+    chassis: "VF-25",
+    base: "Kannapolis, USA",
+    founded: "2016",
+    titles: 0,
+  },
+}
+
 export function getTeamColor(name: string): string {
   return teamColors[name] ?? "#888888"
+}
+
+export function getTeamInsights(name: string) {
+  return teamInsights[name]
 }
 
 export function getTeamNationality(name: string): string {

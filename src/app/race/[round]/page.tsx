@@ -74,13 +74,7 @@ async function RaceContent({ round }: { round: string }) {
           </h1>
         </div>
         <p className="text-silver">
-          <Link
-            href={`/circuits/${race.Circuit.circuitId}`}
-            className="hover:text-white transition-colors"
-          >
-            {race.Circuit.circuitName}
-          </Link>{" "}
-          &middot;{" "}
+          {race.Circuit.circuitName} &middot;{" "}
           {race.Circuit.Location.locality},{" "}
           {race.Circuit.Location.country}
         </p>

@@ -2,10 +2,11 @@ import { Suspense } from "react"
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import { getConstructorStandings, getConstructorResults, getDriverStandings } from "@/lib/ergast"
-import { getTeamColor, getCountryFlag } from "@/lib/teamColors"
+import { getTeamColor, getCountryFlag, getTeamInsights } from "@/lib/teamColors"
 import { getStatusDisplay } from "@/lib/utils"
 import { HeroSkeleton } from "@/components/ui/Skeleton"
 import TeamCarBg from "@/components/ui/TeamCarBg"
+import TeamCarBlueprint from "@/components/ui/TeamCarBlueprint"
 import Link from "next/link"
 
 interface ConstructorPageProps {
@@ -117,6 +118,43 @@ async function ConstructorContent({ id }: { id: string }) {
           </div>
         </>
       )}
+
+      {(() => {
+        const insights = getTeamInsights(team.Constructor.name)
+        if (!insights) return null
+        return (
+          <>
+            <TeamCarBlueprint teamColor={color} teamName={team.Constructor.name} className="mb-8 relative z-10" />
+            <h2 className="text-xl font-bold text-white font-display tracking-wide mb-4 relative z-10">Team Insights</h2>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-8 relative z-10">
+              <div className="bg-pit border border-asphalt rounded-xl p-3">
+                <p className="text-[10px] text-silver uppercase tracking-wider mb-1">Team Principal</p>
+                <p className="text-sm font-semibold text-white">{insights.principal}</p>
+              </div>
+              <div className="bg-pit border border-asphalt rounded-xl p-3">
+                <p className="text-[10px] text-silver uppercase tracking-wider mb-1">Engine</p>
+                <p className="text-sm font-semibold text-white">{insights.engine}</p>
+              </div>
+              <div className="bg-pit border border-asphalt rounded-xl p-3">
+                <p className="text-[10px] text-silver uppercase tracking-wider mb-1">Chassis</p>
+                <p className="text-sm font-semibold text-white">{insights.chassis}</p>
+              </div>
+              <div className="bg-pit border border-asphalt rounded-xl p-3">
+                <p className="text-[10px] text-silver uppercase tracking-wider mb-1">Base</p>
+                <p className="text-sm font-semibold text-white">{insights.base}</p>
+              </div>
+              <div className="bg-pit border border-asphalt rounded-xl p-3">
+                <p className="text-[10px] text-silver uppercase tracking-wider mb-1">Founded</p>
+                <p className="text-sm font-semibold text-white">{insights.founded}</p>
+              </div>
+              <div className="bg-pit border border-asphalt rounded-xl p-3">
+                <p className="text-[10px] text-silver uppercase tracking-wider mb-1">Constructors Titles</p>
+                <p className="text-sm font-semibold text-white">{insights.titles}</p>
+              </div>
+            </div>
+          </>
+        )
+      })()}
 
       <h2 className="text-xl font-bold text-white font-display tracking-wide mb-4 relative z-10">Season Results ({recentResults.length})</h2>
       <div className="overflow-y-auto max-h-[600px] rounded-xl border border-asphalt bg-pit relative z-10">
