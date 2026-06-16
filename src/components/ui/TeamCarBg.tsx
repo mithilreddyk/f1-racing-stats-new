@@ -7,100 +7,94 @@ export default function TeamCarBg({ teamColor, className = "" }: TeamCarBgProps)
   return (
     <div className={`absolute inset-0 overflow-hidden pointer-events-none select-none ${className}`}>
       <svg
-        viewBox="0 0 800 400"
-        className="absolute -right-20 top-1/2 -translate-y-1/2 w-[600px] opacity-[0.04]"
+        viewBox="0 0 800 350"
+        className="absolute -right-10 top-1/2 -translate-y-1/2 w-[500px] opacity-15"
         xmlns="http://www.w3.org/2000/svg"
         style={{ color: teamColor }}
       >
-        {/* Main body */}
+        {/* Main body silhouette */}
         <path
-          d="M120,220 Q100,220 80,210 L60,200 L50,195 Q40,190 35,185 L30,180 Q20,170 15,165 L10,160
-             Q5,155 8,150 L12,145 Q18,138 25,135 L40,130 L55,128 L70,126 L100,124
-             L130,122 L160,118 L200,112 L240,108 L280,106 L320,104
-             Q340,103 360,100 L380,96 Q400,92 420,88 L440,84
-             Q460,80 480,78 L500,76 Q520,74 540,72 L560,70
-             Q580,68 600,66 L620,64 Q640,62 660,60 L680,58
-             Q700,56 720,58 L740,62 Q755,66 760,76 L762,84
-             Q764,92 760,98 L755,105 Q750,112 740,115
-             L730,118 L720,120 Q710,122 700,124 L680,126
-             L660,128 L640,130 L620,132 L600,134 L580,136
-             L560,138 L540,140 L520,142 L500,144 L480,146
-             L460,148 L440,152 L420,156 L400,160 L380,164
-             L360,168 L340,172 L320,176 L300,178 L280,180
-             L260,182 L240,184 L220,186 L200,188 L180,190
-             L160,195 L140,200 L130,208 Z"
+          d="M60,200 Q40,195 20,185 L5,175 Q0,170 2,162 L8,155 Q15,148 25,145 L40,142 L70,138 L100,135 L140,130 L180,125 L220,120 L260,115 L300,110
+             Q330,108 360,105 L400,102 L440,100 L480,98 L520,96 L560,95 L600,94
+             Q640,93 680,94 L710,96 Q730,100 745,108 L755,118 Q760,128 755,135
+             L745,140 L730,142 L710,143 L680,144 L650,145 L620,146 L590,147 L560,148
+             L530,149 L500,150 L470,152 L440,155 L410,158 L380,162 L350,166
+             Q320,170 290,174 L260,178 L230,182 L200,186 L170,190 L140,194
+             Q110,198 90,200 L70,202 Z"
           fill="currentColor"
+        />
+
+        {/* Nose and front wing */}
+        <path
+          d="M5,175 L2,168 L3,160 L8,152 L15,148 L22,146 L28,148 L25,155 L20,162 L15,170 Z"
+          fill="currentColor"
+          opacity="0.7"
+        />
+        <path
+          d="M50,200 L25,195 L10,188 L5,182 L10,178 L30,185 L55,192 Z"
+          fill="currentColor"
+          opacity="0.5"
         />
 
         {/* Rear wing */}
         <path
-          d="M680,58 L690,45 L700,40 L710,38 L720,40 L730,45 L740,55
-             L740,62 L720,58 L700,56 Z"
+          d="M710,96 L720,78 L730,68 L740,64 L750,68 L758,78 L762,92 L760,105 L752,110 L740,108 L725,105 L712,100 Z"
           fill="currentColor"
-          opacity="0.8"
+          opacity="0.7"
         />
         <path
-          d="M685,55 L700,35 L715,35 L725,42 L735,52
-             L720,48 L700,46 L685,50 Z"
+          d="M720,82 L732,62 L745,58 L755,65 L758,78 L748,72 L735,68 L722,72 Z"
           fill="currentColor"
-          opacity="0.5"
-        />
-
-        {/* Front wing */}
-        <path
-          d="M10,160 L5,155 L3,150 L5,145 L10,140 L15,138 L20,140 L25,145
-             L22,150 L18,155 Z"
-          fill="currentColor"
-          opacity="0.8"
-        />
-        <path
-          d="M8,155 L2,148 L4,142 L10,138 L18,140 L12,148 Z"
-          fill="currentColor"
-          opacity="0.5"
+          opacity="0.4"
         />
 
         {/* Halo */}
         <path
-          d="M200,112 Q210,90 240,82 Q260,78 280,80 Q290,82 295,88
-             Q300,95 300,104"
+          d="M200,130 Q210,105 240,95 Q265,88 290,90 Q305,92 310,100 Q315,110 315,125"
           fill="none"
           stroke="currentColor"
-          strokeWidth="3"
-          opacity="0.6"
+          strokeWidth="4"
+          opacity="0.5"
         />
 
-        {/* Cockpit opening */}
+        {/* Cockpit */}
         <path
-          d="M240,108 Q250,100 270,96 Q290,94 310,96 Q330,100 340,108"
+          d="M240,118 Q255,108 275,104 Q295,102 315,105 Q335,110 345,120"
           fill="currentColor"
-          opacity="0.15"
+          opacity="0.1"
         />
 
         {/* Rear wheel */}
-        <circle cx="620" cy="170" r="32" fill="none" stroke="currentColor" strokeWidth="4" opacity="0.6" />
-        <circle cx="620" cy="170" r="22" fill="currentColor" opacity="0.15" />
-        <line x1="600" y1="170" x2="640" y2="170" stroke="currentColor" strokeWidth="2" opacity="0.4" />
-        <line x1="620" y1="150" x2="620" y2="190" stroke="currentColor" strokeWidth="2" opacity="0.4" />
+        <circle cx="600" cy="185" r="35" fill="none" stroke="currentColor" strokeWidth="5" opacity="0.5" />
+        <circle cx="600" cy="185" r="22" fill="currentColor" opacity="0.15" />
+        <line x1="578" y1="185" x2="622" y2="185" stroke="currentColor" strokeWidth="2" opacity="0.3" />
+        <line x1="600" y1="163" x2="600" y2="207" stroke="currentColor" strokeWidth="2" opacity="0.3" />
 
         {/* Front wheel */}
-        <circle cx="120" cy="175" r="30" fill="none" stroke="currentColor" strokeWidth="4" opacity="0.6" />
-        <circle cx="120" cy="175" r="20" fill="currentColor" opacity="0.15" />
-        <line x1="102" y1="175" x2="138" y2="175" stroke="currentColor" strokeWidth="2" opacity="0.4" />
-        <line x1="120" y1="157" x2="120" y2="193" stroke="currentColor" strokeWidth="2" opacity="0.4" />
+        <circle cx="120" cy="190" r="32" fill="none" stroke="currentColor" strokeWidth="5" opacity="0.5" />
+        <circle cx="120" cy="190" r="20" fill="currentColor" opacity="0.15" />
+        <line x1="100" y1="190" x2="140" y2="190" stroke="currentColor" strokeWidth="2" opacity="0.3" />
+        <line x1="120" y1="170" x2="120" y2="210" stroke="currentColor" strokeWidth="2" opacity="0.3" />
 
-        {/* Floor / diffuser */}
+        {/* Diffuser / floor */}
         <path
-          d="M660,130 L680,128 L700,130 L710,135 L700,140 L680,138 L660,136 Z"
+          d="M650,145 L680,142 L710,143 L730,148 L720,152 L690,150 L660,148 Z"
           fill="currentColor"
           opacity="0.3"
         />
 
-        {/* Air intake / sidepod */}
+        {/* Sidepod air intake */}
         <path
-          d="M360,168 Q380,155 420,150 Q450,148 480,150 Q500,155 510,165
-             Q515,170 510,178 Q500,182 480,180 Q450,178 420,180 Q390,182 370,178 Z"
+          d="M340,170 Q370,155 420,148 Q460,145 500,148 Q530,155 535,168 Q530,178 500,180 Q460,182 420,180 Q380,178 350,175 Z"
           fill="currentColor"
-          opacity="0.1"
+          opacity="0.12"
+        />
+
+        {/* Engine cover bumps */}
+        <path
+          d="M500,148 Q530,145 560,148 Q580,152 580,160 Q570,165 550,162 Q520,158 500,155 Z"
+          fill="currentColor"
+          opacity="0.08"
         />
       </svg>
     </div>
