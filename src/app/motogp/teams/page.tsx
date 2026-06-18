@@ -1,6 +1,8 @@
 import type { Metadata } from "next"
+import Link from "next/link"
 import { getMotoGPStandings, getMotoGPTeams } from "@/lib/motogp"
 import { getCountryFlag } from "@/lib/teamColors"
+import MotoGPBikeImage from "@/components/ui/MotoGPBikeImage"
 
 export const metadata: Metadata = {
   title: "MotoGP Teams",
@@ -78,21 +80,25 @@ export default function MotoGPTeamsPage() {
                   </span>
                 </div>
 
+                {/* Bike image */}
+                <MotoGPBikeImage teamColor={team.color} teamName={team.name} bikeName={team.bike} className="mb-4" />
+
                 {/* Riders */}
                 <div className="space-y-2">
                   {riders.map((s) => (
-                    <div
+                    <Link
                       key={s.rider.id}
-                      className="flex items-center gap-2 p-2 rounded-lg bg-carbon/50"
+                      href={`/motogp/riders/${s.rider.id}`}
+                      className="flex items-center gap-2 p-2 rounded-lg bg-carbon/50 hover:bg-carbon/80 transition-colors"
                     >
                       <span className="font-mono text-xs text-silver w-6 text-center">P{s.position}</span>
                       <span className="font-mono text-xs text-silver/60">#{s.rider.number}</span>
-                      <span className="text-sm text-white font-medium flex-1 truncate">
+                      <span className="text-sm text-white font-medium flex-1 truncate hover:text-[#7B2D8E] transition-colors">
                         {s.rider.firstName} {s.rider.lastName}
                       </span>
                       <span className="font-mono text-sm font-bold text-white">{s.points}</span>
                       <span className="text-[10px] text-silver">pts</span>
-                    </div>
+                    </Link>
                   ))}
                 </div>
               </div>

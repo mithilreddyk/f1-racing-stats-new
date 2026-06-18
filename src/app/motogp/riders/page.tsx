@@ -1,4 +1,5 @@
 import type { Metadata } from "next"
+import Link from "next/link"
 import { getMotoGPStandings } from "@/lib/motogp"
 import { getCountryFlag } from "@/lib/teamColors"
 
@@ -63,9 +64,9 @@ export default function MotoGPRidersPage() {
                   <td className="py-3 px-4">
                     <div className="flex items-center gap-2">
                       <span className="text-sm">{flag}</span>
-                      <span className={`font-semibold ${isP1 ? "text-gold" : "text-white"}`}>
+                      <Link href={`/motogp/riders/${s.rider.id}`} className={`font-semibold hover:text-[#7B2D8E] transition-colors ${isP1 ? "text-gold" : "text-white"}`}>
                         {s.rider.firstName} {s.rider.lastName}
-                      </span>
+                      </Link>
                     </div>
                   </td>
                   <td className="py-3 px-4 hidden md:table-cell">
@@ -90,9 +91,10 @@ export default function MotoGPRidersPage() {
           const isP1 = s.position === 1
           const flag = getCountryFlag(NATIONALITY_MAP[s.rider.nationality] ?? "")
           return (
-            <div
+            <Link
               key={s.rider.id}
-              className="flex items-center gap-3 p-3 rounded-xl bg-pit border border-asphalt"
+              href={`/motogp/riders/${s.rider.id}`}
+              className="flex items-center gap-3 p-3 rounded-xl bg-pit border border-asphalt hover:border-[#7B2D8E]/30 transition-all"
             >
               <div className="w-1 self-stretch rounded-full flex-shrink-0" style={{ backgroundColor: s.team.color }} />
               <div
@@ -119,7 +121,7 @@ export default function MotoGPRidersPage() {
                 <p className="font-mono font-bold text-white">{s.points}</p>
                 <p className="text-[10px] text-silver">pts</p>
               </div>
-            </div>
+            </Link>
           )
         })}
       </div>
