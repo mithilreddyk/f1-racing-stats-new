@@ -42,7 +42,7 @@ async function ConstructorsContent() {
         </GlossaryTooltip>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         {standings.map((team) => (
           <TeamCard
             key={team.Constructor.constructorId}
@@ -78,7 +78,7 @@ export default function ConstructorsPage() {
             <div className="h-8 w-64 bg-asphalt/50 rounded animate-pulse" />
             <div className="h-4 w-48 bg-asphalt/50 rounded animate-pulse mt-2" />
           </div>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-3 sm:gap-4 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             {Array.from({ length: 6 }).map((_, i) => (
               <div
                 key={i}

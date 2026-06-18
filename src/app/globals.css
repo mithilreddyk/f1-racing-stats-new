@@ -23,6 +23,10 @@
   --font-mono: "JetBrains Mono", monospace;
 }
 
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
 body {
   background: var(--carbon);
   color: var(--white);
@@ -37,11 +41,12 @@ body {
 }
 
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #0D0D0D;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -59,4 +64,30 @@ details > summary {
 
 details > summary::-webkit-details-marker {
   display: none;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.4s ease-out forwards;
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent 30%, rgba(255,255,255,0.04) 50%, transparent 70%);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
 }

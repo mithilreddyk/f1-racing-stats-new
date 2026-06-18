@@ -1,5 +1,3 @@
-import Image from "next/image"
-
 interface TeamCarImageProps {
   teamName: string
   teamColor: string
@@ -18,10 +16,14 @@ const CAR_IMAGE_MAP: Record<string, string> = {
   Williams: "/cars/williams.avif",
   "RB F1 Team": "/cars/racingbulls.avif",
   RB: "/cars/racingbulls.avif",
+  "Racing Bulls": "/cars/racingbulls.avif",
   "Kick Sauber": "/cars/kicksauber.avif",
   "Stake F1 Team": "/cars/kicksauber.avif",
+  Sauber: "/cars/kicksauber.avif",
   "Haas F1 Team": "/cars/haas.avif",
   Haas: "/cars/haas.avif",
+  Audi: "/cars/audi.avif",
+  Cadillac: "/cars/cadillac.avif",
 }
 
 export default function TeamCarImage({ teamName, teamColor, className = "" }: TeamCarImageProps) {
@@ -33,14 +35,11 @@ export default function TeamCarImage({ teamName, teamColor, className = "" }: Te
       style={{ background: `linear-gradient(135deg, ${teamColor}12 0%, #0D0D0D 60%)`, border: `1px solid ${teamColor}30` }}
     >
       {src ? (
-        <div className="relative w-full" style={{ paddingBottom: "40%" }}>
-          <Image
+        <div className="w-full" style={{ aspectRatio: "5 / 2" }}>
+          <img
             src={src}
             alt={`${teamName} 2025 car`}
-            fill
-            className="object-contain p-4 drop-shadow-2xl"
-            sizes="(max-width: 768px) 100vw, 800px"
-            priority
+            className="w-full h-full object-contain p-4 drop-shadow-2xl"
           />
         </div>
       ) : (

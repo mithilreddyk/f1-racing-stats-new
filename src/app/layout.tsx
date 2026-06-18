@@ -27,7 +27,7 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: {
-    default: "PIT WALL — F1 Stats for New Fans",
+    default: "PIT WALL — F1 & MotoGP Stats",
     template: "%s | PIT WALL",
   },
   description:

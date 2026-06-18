@@ -23,21 +23,21 @@ function LiveCountdown({ dateStr }: { dateStr: string }) {
   }
 
   return (
-    <div className="grid grid-cols-4 gap-4 max-w-md mx-auto">
+    <div className="grid grid-cols-4 gap-2 sm:gap-4 max-w-md mx-auto">
       {[
         { label: "Days", value: countdown.days },
-        { label: "Hours", value: countdown.hours },
-        { label: "Mins", value: countdown.minutes },
-        { label: "Secs", value: countdown.seconds },
+        { label: "Hrs", value: countdown.hours },
+        { label: "Min", value: countdown.minutes },
+        { label: "Sec", value: countdown.seconds },
       ].map((unit) => (
         <div
           key={unit.label}
-          className="bg-pit rounded-xl border border-asphalt p-3 text-center"
+          className="bg-pit rounded-lg sm:rounded-xl border border-asphalt p-2 sm:p-3 text-center"
         >
-          <p className="text-3xl sm:text-4xl font-bold font-mono text-white">
+          <p className="text-2xl sm:text-4xl font-bold font-mono text-white">
             {String(unit.value).padStart(2, "0")}
           </p>
-          <p className="text-[10px] text-silver uppercase tracking-widest mt-1">
+          <p className="text-[9px] sm:text-[10px] text-silver uppercase tracking-widest mt-0.5 sm:mt-1">
             {unit.label}
           </p>
         </div>
@@ -70,7 +70,7 @@ export default function HeroRace({ nextRace, totalRaces }: HeroRaceProps) {
   const flag = getCountryFlag(nextRace.Circuit.Location.country)
 
   return (
-    <section className="relative overflow-hidden rounded-2xl border border-scarlet/20 bg-gradient-to-br from-pit via-carbon to-pit p-8 sm:p-12">
+    <section className="relative overflow-hidden rounded-xl sm:rounded-2xl border border-scarlet/20 bg-gradient-to-br from-pit via-carbon to-pit p-5 sm:p-12">
       <div className="absolute top-0 right-0 w-64 h-64 bg-scarlet/5 rounded-full blur-3xl -mr-20 -mt-20" />
       <div className="relative z-10">
         <div className="flex items-center justify-center gap-2 mb-2">
@@ -81,7 +81,7 @@ export default function HeroRace({ nextRace, totalRaces }: HeroRaceProps) {
         </div>
         <div className="flex items-center justify-center gap-3 mb-2">
           <span className="text-3xl">{flag}</span>
-          <h1 className="text-2xl sm:text-4xl font-bold text-white font-display tracking-wide">
+          <h1 className="text-xl sm:text-4xl font-bold text-white font-display tracking-wide">
             {nextRace.raceName}
           </h1>
         </div>
